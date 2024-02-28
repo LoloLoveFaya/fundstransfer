@@ -2,7 +2,6 @@ package com.elf.fundtransfer.infrastructure.service;
 
 import com.elf.fundtransfer.domain.model.Account;
 import com.elf.fundtransfer.domain.model.valueobject.Currency;
-import com.elf.fundtransfer.domain.repository.AccountRepository;
 import com.elf.fundtransfer.domain.repository.AccountJpaRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -22,14 +23,12 @@ public class AccountServiceImplTest {
     private AccountServiceImpl accountService;
 
     @Mock
-    private AccountRepository accountRepository;
-    @Mock
     private AccountJpaRepository accountJpaRepository;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        accountService = new AccountServiceImpl(accountRepository, accountJpaRepository);
+        accountService = new AccountServiceImpl(accountJpaRepository);
     }
 
     @Test
@@ -37,15 +36,15 @@ public class AccountServiceImplTest {
         Account account = new Account(1L, 1L, Currency.USD, 100.0);
         accountService.createAccount(account);
 
-        verify(accountRepository, times(1)).save(account);
+        verify(accountJpaRepository, times(1)).save(account);
     }
 
     @Test
     public void findById_Success() {
         Account expectedAccount = new Account(1L,1L, Currency.USD, 100.0);
-        when(accountRepository.findById(1L)).thenReturn(expectedAccount);
-        //Account actualAccount = accountService.findById(1L);
+        when(accountJpaRepository.findById(1L)).thenReturn(Optional.of(expectedAccount));
+        Optional<Account> actualAccount = accountService.findByOwnerId(1L);
 
-        //assertEquals(expectedAccount, actualAccount);
+        assertEquals(expectedAccount, actualAccount);
     }
 }

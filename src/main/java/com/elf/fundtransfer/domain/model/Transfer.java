@@ -29,6 +29,16 @@ public class Transfer {
     private Date timestamp;
     private Currency currency;
 
+    public Transfer(Long id, Long transferId, Long debitAccountId, Long creditAccountId, double amount, Date timestamp, Currency currency) {
+        this.id = id;
+        this.transferId = transferId;
+        this.debitAccountId = debitAccountId;
+        this.creditAccountId = creditAccountId;
+        this.amount = amount;
+        this.timestamp = timestamp;
+        this.currency = currency;
+    }
+
     @Transient
     private UUID transferIdUUID;
 
