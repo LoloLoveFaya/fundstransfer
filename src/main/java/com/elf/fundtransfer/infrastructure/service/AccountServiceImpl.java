@@ -20,10 +20,17 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void createAccount(Account account) {
+        if(account.getOwnerId() == null){
+            throw new AccountAlreadyExistsException("Account ownerId can't be null");
+        }
         if(existsByOwnerId(account.getOwnerId())){
             throw new AccountAlreadyExistsException("An account with ownerId " + account.getOwnerId() + " already exists");
         }
-        accountJpaRepository.save(account);
+        if (account.getOwnerId() != 0L) {
+            accountJpaRepository.save(account);
+        } else {
+            throw new AccountAlreadyExistsException("Account ownerId cannot be empty");
+        }
     }
 
     @Override
