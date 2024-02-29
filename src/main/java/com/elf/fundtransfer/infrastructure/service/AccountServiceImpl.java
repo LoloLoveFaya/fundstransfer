@@ -5,6 +5,8 @@ import com.elf.fundtransfer.domain.model.Account;
 import com.elf.fundtransfer.domain.service.AccountService;
 import com.elf.fundtransfer.domain.repository.AccountJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -41,6 +43,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean existsByOwnerId(Long ownerId){
         return accountJpaRepository.existsByOwnerId(ownerId);
+    }
+
+    @Override
+    public Page<Account> getAllAccounts(Pageable pageable) {
+        return accountJpaRepository.findAll(pageable);
     }
 
 }
