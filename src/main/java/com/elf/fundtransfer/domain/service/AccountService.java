@@ -12,7 +12,4 @@ public interface AccountService {
     Optional<Account> findByOwnerId(Long ownerId);
 
     boolean existsByOwnerId(Long ownerId);
-
-    Page<Account> getAllAccounts(Pageable pageable);
-
 }
