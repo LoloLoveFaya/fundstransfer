@@ -43,6 +43,5 @@ public class TransferController {
             return ResponseEntity.ok(transferHistory);
         }
     }
-
 }
 
