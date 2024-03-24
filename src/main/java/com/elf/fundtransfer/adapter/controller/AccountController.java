@@ -1,8 +1,8 @@
 package com.elf.fundtransfer.adapter.controller;
 
-import com.elf.fundtransfer.domain.exception.AccountAlreadyExistsException;
 import com.elf.fundtransfer.domain.model.Account;
 import com.elf.fundtransfer.domain.service.AccountService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -13,12 +13,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class AccountController {
     private final AccountService accountService;
-
-    public AccountController(AccountService accountService) {
-        this.accountService = accountService;
-    }
 
     @PostMapping("/accounts")
     public ResponseEntity<Void> createAccount(@RequestBody Account account) {

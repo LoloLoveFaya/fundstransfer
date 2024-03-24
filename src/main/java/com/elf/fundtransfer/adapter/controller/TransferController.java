@@ -1,10 +1,9 @@
 package com.elf.fundtransfer.adapter.controller;
 
 import com.elf.fundtransfer.domain.exception.InsufficientBalanceException;
-import com.elf.fundtransfer.domain.model.Account;
 import com.elf.fundtransfer.domain.model.Transfer;
 import com.elf.fundtransfer.domain.service.TransferService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -13,14 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class TransferController {
 
     private final TransferService transferService;
-
-    @Autowired
-    public TransferController(TransferService transferService) {
-        this.transferService = transferService;
-    }
 
     @PostMapping("/transfers")
     public ResponseEntity<String> transferFunds(@RequestBody Transfer transfer) {
